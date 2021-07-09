@@ -41,6 +41,15 @@
                     L.marker([{{$location->latitude}}, {{$location->longitude}}]).addTo(map)
                         .bindPopup('{{$location->created_at->diffForHumans()}}');
                     @endforeach
+
+                    let latlngs = [
+                            @foreach($locations as $location)
+                        [{{$location->latitude}}, {{$location->longitude}}],
+                        @endforeach
+                    ];
+
+                    let polyline = L.polyline(latlngs, {color: '#257eca'}).addTo(map);
+                    map.fitBounds(polyline.getBounds());
                 }
             </script>
 
