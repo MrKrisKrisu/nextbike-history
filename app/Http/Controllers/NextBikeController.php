@@ -8,6 +8,7 @@ use App\Models\Bike;
 use App\Models\BikeState;
 use Carbon\Carbon;
 use Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class NextBikeController extends Controller {
 
@@ -50,9 +51,17 @@ class NextBikeController extends Controller {
     }
 
     public function renderBike(int $id): View {
-        $bike = Bike::with(['states'])->findOrFail($id);
+        $bike = Bike::findOrFail($id);
+
+        $locations = $bike->states()
+                          ->groupBy(['latitude', 'longitude'])
+                          ->select(['latitude', 'longitude', DB::raw('MAX(created_at) AS created_at')])
+                          ->orderBy(DB::raw('MAX(created_at)'))
+                          ->get();
+
         return view('bike', [
-            'bike' => $bike
+            'bike'      => $bike,
+            'locations' => $locations,
         ]);
     }
 }

@@ -22,12 +22,27 @@
                 </div>
                 <div class="row">
                     <div class="col-md-3"></div>
-                    <div class="table-responsive col-md-6">
-
-                    </div>
+                    <div id="map" style="height: 500px;"></div>
                     <div class="col-md-3"></div>
                 </div>
             </main>
+
+            <script>
+                $(document).ready(loadMap);
+
+                function loadMap() {
+                    let map = L.map('map').setView([52.374457, 9.738619], 13);
+
+                    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+                        attribution: '&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'
+                    }).addTo(map);
+
+                    @foreach($locations as $location)
+                    L.marker([{{$location->latitude}}, {{$location->longitude}}]).addTo(map)
+                        .bindPopup('{{$location->created_at->diffForHumans()}}');
+                    @endforeach
+                }
+            </script>
 
             <footer class="my-5 pt-5 text-muted text-center text-small">
                 <ul class="list-inline">
