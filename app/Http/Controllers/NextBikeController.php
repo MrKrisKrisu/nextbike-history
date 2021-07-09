@@ -37,6 +37,7 @@ class NextBikeController extends Controller {
                                       'active'    => $bikeData->active,
                                       'state'     => $bikeData->state,
                                   ]);
+                echo "* Bike " . $bike->id . " fetched. ($latitude / $longitude)" . PHP_EOL;
             }
         }
     }
