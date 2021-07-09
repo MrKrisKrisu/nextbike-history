@@ -5,7 +5,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1"/>
         <meta name="robots" content="noindex"/>
 
-        <title>Nextbike History</title>
+        <title>Fahrrad {{$bike->id}} | Nextbike History</title>
 
         <script src="{{ mix('js/app.js') }}"></script>
         <link href="{{ mix('css/app.css') }}" rel="stylesheet">
@@ -15,34 +15,15 @@
         <div class="container">
             <main>
                 <div class="py-5 text-center">
-                    <h2>Nextbike History</h2>
+                    <h2>Fahrrad {{$bike->id}} | Nextbike History</h2>
                     <p class="lead">Diese Seite steht in keinem Zusammenhang mit der nextbike GmbH.
                         Sie wird privat betrieben.</p>
+                    <a href="/" class="btn btn-primary">Zurück zur Übersicht</a>
                 </div>
                 <div class="row">
                     <div class="col-md-3"></div>
                     <div class="table-responsive col-md-6">
-                        <table class="table">
-                            <thead>
-                                <tr>
-                                    <th>Fahrrad</th>
-                                    <th>Letzte Aktualisierung</th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                @foreach($bikes as $bike)
-                                    <tr>
-                                        <td>
-                                            <a href="{{route('bike', ['id' => $bike->id])}}">
-                                                Bike {{$bike->id}}
-                                            </a>
-                                        </td>
-                                        <td>{{$bike->updated_at->diffForHumans()}}</td>
-                                    </tr>
-                                @endforeach
-                            </tbody>
-                        </table>
+
                     </div>
                     <div class="col-md-3"></div>
                 </div>

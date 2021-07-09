@@ -7,6 +7,7 @@ use GuzzleHttp\Exception\GuzzleException;
 use App\Models\Bike;
 use App\Models\BikeState;
 use Carbon\Carbon;
+use Illuminate\View\View;
 
 class NextBikeController extends Controller {
 
@@ -42,7 +43,16 @@ class NextBikeController extends Controller {
         }
     }
 
-    public function renderMainPage() {
-        return 'ok';
+    public function renderMainPage(): View {
+        return view('welcome', [
+            'bikes' => Bike::orderByDesc('updated_at')->orderBy('id')->get()
+        ]);
+    }
+
+    public function renderBike(int $id): View {
+        $bike = Bike::with(['states'])->findOrFail($id);
+        return view('bike', [
+            'bike' => $bike
+        ]);
     }
 }

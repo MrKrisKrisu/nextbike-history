@@ -15,3 +15,4 @@ use App\Http\Controllers\NextBikeController;
 */
 
 Route::get('/', [NextBikeController::class, 'renderMainPage']);
+Route::get('/bike/{id}', [NextBikeController::class, 'renderBike'])->name('bike');
