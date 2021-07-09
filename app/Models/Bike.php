@@ -10,7 +10,7 @@ class Bike extends Model {
 
     use HasFactory;
 
-    protected $fillable = ['id'];
+    protected $fillable = ['id', 'updated_at'];
 
     public function states(): HasMany {
         return $this->hasMany(BikeState::class, 'bike_id', 'id');

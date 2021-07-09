@@ -6,6 +6,7 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use App\Models\Bike;
 use App\Models\BikeState;
+use Carbon\Carbon;
 
 class NextBikeController extends Controller {
 
@@ -25,7 +26,10 @@ class NextBikeController extends Controller {
             $latitude  = $place->lat;
             $longitude = $place->lng;
             foreach($place->bike_list as $bikeData) {
-                $bike = Bike::firstOrCreate(['id' => $bikeData->number]);
+                $bike = Bike::updateOrCreate(
+                    ['id' => $bikeData->number],
+                    ['updated_at' => Carbon::now()->toIso8601String()]
+                );
                 BikeState::create([
                                       'bike_id'   => $bike->id,
                                       'latitude'  => $latitude,
